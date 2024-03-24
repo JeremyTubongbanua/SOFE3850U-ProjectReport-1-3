@@ -31,17 +31,20 @@ int main() {
         exit(EXIT_FAILURE);
     }
     printf("Listening...\n");
-    if (listen(server_fd, 5) < 0) {
-        perror("listen");
-        exit(EXIT_FAILURE);
+    while(1)
+    {
+        if (listen(server_fd, 5) < 0) {
+            perror("listen");
+            exit(EXIT_FAILURE);
+        }
+        if ((new_socket = accept(server_fd, (struct sockaddr *) &address, (socklen_t*) &addrlen)) < 0) {
+            perror("accept");
+            exit(EXIT_FAILURE);
+        }
+        send(new_socket, message, strlen(message), 0);
+        printf("Hello message sent\n");
+        close(server_fd);
+        close(new_socket);
     }
-    if ((new_socket = accept(server_fd, (struct sockaddr *) &address, (socklen_t*) &addrlen)) < 0) {
-        perror("accept");
-        exit(EXIT_FAILURE);
-    }
-    send(new_socket, message, strlen(message), 0);
-    printf("Hello message sent\n");
-    close(server_fd);
-    close(new_socket);
     return 0;
 }

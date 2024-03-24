@@ -22,6 +22,7 @@ int main() {
         return -1;
     }
     serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = IP_ADDRESS;
     serv_addr.sin_port = htons(PORT);
     if (inet_pton(AF_INET, IP_ADDRESS, &serv_addr.sin_addr) <= 0) {
         printf("\nInvalid address/ Address not supported \n");
