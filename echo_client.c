@@ -13,10 +13,12 @@ int main()
     struct sockaddr_in server, client;
     int client_len;
 
-    sd = socket(AF_INET, SOCK_STREAM, 0);
+    sd = socket(AF_LOCAL, SOCK_STREAM, 0);
     connect(sd, (struct sockaddr *)&server, sizeof(server));
 
     char sbuf[BUFLEN], rbuf[BUFLEN];
+    memset(sbuf, 0, BUFLEN);
+    memset(rbuf, 0, BUFLEN);
     int n, i, bytes_to_read;
     char *bp;
     printf("Transmit: \n");
@@ -33,6 +35,8 @@ int main()
         }
         write(1, rbuf, n);
         printf("Transmit: \n");
+        memset(sbuf, 0, BUFLEN);
+        memset(rbuf, 0, BUFLEN);
     }
     close(sd);
 }

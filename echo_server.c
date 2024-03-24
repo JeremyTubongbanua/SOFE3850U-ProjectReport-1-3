@@ -10,9 +10,12 @@
 int echod(int sd)
 {
     char *bp, buf[BUFLEN];
+    memset(buf, 0, BUFLEN); // zero out buffer
     int n, bytes_to_read;
-    while(n = read(sd, buf, BUFLEN))
-    write(sd, buf, n);
+    while((n = read(sd, buf, BUFLEN)))
+    {
+        write(sd, buf, n); 
+    }
     close(sd);
     return(0);
 } 
@@ -23,7 +26,7 @@ int main()
     struct sockaddr_in server, client;
     int client_len;
 
-    sd = socket(AF_INET, SOCK_STREAM, 0);
+    sd = socket(AF_LOCAL, SOCK_STREAM, 0);
     bind(sd, (struct sockaddr *)&server, sizeof(server));         // binds socket to IP and port
     listen(sd, 5);                                                // puts socket into passive mode and accepts data of size 5
     new_sd = accept(sd, (struct sockaddr *)&client, &client_len); // accepts connection from client
