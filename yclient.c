@@ -1,4 +1,4 @@
-#define PORT 8083
+#define PORT 8080
 #define IP_ADDRESS "192.168.0.114"
 #include <stdio.h>
 #include <stdlib.h>
